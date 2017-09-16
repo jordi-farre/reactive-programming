@@ -1,5 +1,6 @@
 import io.reactivex.Observable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class UsingObservable {
@@ -29,6 +30,13 @@ public class UsingObservable {
         Observable.fromIterable(messages)
             .zipWith(Observable.range(1, Integer.MAX_VALUE), (string, count) -> String.format("%2d. %s", count, string))
             .subscribe(console::println);
+    }
+
+    public void mergeEvents(List<String> firstMessageGroup, List<String> secondMessageGroup) {
+        Observable.merge(
+            Observable.fromIterable(firstMessageGroup),
+            Observable.fromIterable(secondMessageGroup)
+        ).subscribe(console::println);
     }
 
 }

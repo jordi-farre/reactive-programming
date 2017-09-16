@@ -67,4 +67,17 @@ public class UsingObservableTest {
                 .forEach(message -> Mockito.verify(console).println(String.format("%2d. %s", atomicInteger.getAndIncrement(), message)));
     }
 
+    @Test
+    public void mergeEvents() {
+        List<String> messageList1 = Arrays.asList("learning", "reactive", "programming", "with", "rxjava");
+        List<String> messageList2 = Arrays.asList("trying", "merge", "function");
+
+        this.usingObservable.mergeEvents(messageList1, messageList2);
+
+        messageList1.stream()
+                .forEach(message -> Mockito.verify(console).println(message));
+        messageList2.stream()
+                .forEach(message -> Mockito.verify(console).println(message));
+    }
+
 }
