@@ -9,6 +9,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 
@@ -53,6 +54,17 @@ public class UsingObservableTest {
 
         IntStream.range(start, start + count)
                 .forEach(current -> Mockito.verify(console).println(current));
+    }
+
+    @Test
+    public void zipEventsWithCounter() {
+        List<String> messageList = Arrays.asList("learning", "reactive", "programming", "with", "rxjava");
+
+        this.usingObservable.zipEventsWithCounter(messageList);
+
+        AtomicInteger atomicInteger = new AtomicInteger(1);
+        messageList.stream()
+                .forEach(message -> Mockito.verify(console).println(String.format("%2d. %s", atomicInteger.getAndIncrement(), message)));
     }
 
 }

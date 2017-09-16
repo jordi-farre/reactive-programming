@@ -25,4 +25,10 @@ public class UsingObservable {
             .subscribe(console::println);
     }
 
+    public void zipEventsWithCounter(List<String> messages) {
+        Observable.fromIterable(messages)
+            .zipWith(Observable.range(1, Integer.MAX_VALUE), (string, count) -> String.format("%2d. %s", count, string))
+            .subscribe(console::println);
+    }
+
 }
